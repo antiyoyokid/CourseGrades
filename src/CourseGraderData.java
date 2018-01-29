@@ -25,7 +25,11 @@ public class CourseGraderData {
         String summer2013 = Data.getFileContentsAsString(Data.getJsonFilesAsList().get(4));
         String summer2014 = Data.getFileContentsAsString(Data.getJsonFilesAsList().get(5));
         String combine = fall2013 + fall2014 + spring2013 + spring2014 + summer2013 + summer2014;
-        combine =  combine.replaceAll("\\[", "").replaceAll("\\]","");
+        //combine =  combine.replaceAll("\\[", "").replaceAll("\\]","");
+        combine = combine.replaceAll("[\\[\\](){}]","") + "]";
+        combine = "[" + combine;
+
+
 
         System.out.print(combine);
 
