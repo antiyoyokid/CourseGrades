@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 
 public class CourseGraderTest {
 
+    private static final String TESTER_ARRAY= "[{ \"CRN\": 41758, \"Subject\": \"AAS\", \"Number\": 100, \"Title\": \"Intro Asian American Studies\", \"Section\": \"AD1\", \"Type\": \"DIS\", \"Term\": 120138, \"Instructor\": \"Arai, Sayuri\", \"Grades\": [6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0], \"Average\": 3.72 }]";
+
     private static final String TESTER_JSON = "{\n" +
             "   \"CRN\":41758,\n" +
             "   \"Subject\":\"AAS\",\n" +
@@ -52,7 +54,7 @@ public class CourseGraderTest {
 
     }
     @Test
-    public void getCourseNumber() {
+    public void getNumber() {
     }
 
     @Test
@@ -77,6 +79,9 @@ public class CourseGraderTest {
 
     @Test
     public void getGrades() {
+        Gson localGson = new Gson();
+        CourseGrader[] courseGraderArray = localGson.fromJson(TESTER_ARRAY,CourseGrader[].class);
+        assertArrayEquals(new int[]{6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0}, courseGraderArray[0].getGrades());
     }
 
     @Test
