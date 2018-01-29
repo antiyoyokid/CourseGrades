@@ -37,11 +37,11 @@ public class CourseGraderTest {
             "   }";
 
 
-    private static CourseGrader courseGrader;
+    private static CourseProperties courseGrader;
     @Before
     public void setUp() throws Exception {
         Gson gson = new Gson();
-        courseGrader = gson.fromJson(TESTER_JSON, CourseGrader.class);
+        courseGrader = gson.fromJson(TESTER_JSON, CourseProperties.class);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CourseGraderTest {
     @Test
     public void getGrades() {
         Gson localGson = new Gson();
-        CourseGrader[] courseGraderArray = localGson.fromJson(TESTER_ARRAY,CourseGrader[].class);
+        CourseProperties[] courseGraderArray = localGson.fromJson(TESTER_ARRAY,CourseProperties[].class);
         assertArrayEquals(new int[]{6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0}, courseGraderArray[0].getGrades());
     }
 

@@ -1,6 +1,8 @@
-public class CourseGrader {
+import com.google.gson.annotations.SerializedName;
 
+public class CourseProperties {
 
+    @SerializedName("Subject")
     private String Subject;
     private String Title;
     private String Section;
@@ -12,7 +14,7 @@ public class CourseGrader {
     private int[] Grades;
     private double Average;
 
-    public CourseGrader(String subject) {
+    public CourseProperties(String subject) {
 
     }
 
