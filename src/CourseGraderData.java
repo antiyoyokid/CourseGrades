@@ -63,6 +63,7 @@ public class CourseGraderData {
         /**
          * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
          */
+        subject = subject.toUpperCase();
         Pattern p = Pattern.compile("^[a-zA-Z, ]*$");
         Matcher m = p.matcher(subject);
         boolean b = m.matches();
@@ -102,20 +103,19 @@ public class CourseGraderData {
             throw new IllegalArgumentException(Errors.STRING_ERROR);
         }
 
-            ArrayList<CourseProperties> sortedInstructor = new ArrayList<>();
+        ArrayList<CourseProperties> sortedInstructor = new ArrayList<>();
 
-            for (CourseProperties index : input) {
+        for (CourseProperties index : input) {
 
-                if (index.getInstructor().contains(partOfName)) {
+            if (index.getInstructor().contains(partOfName)) {
 
-                    sortedInstructor.add(index);
-                }
-
+                sortedInstructor.add(index);
             }
 
-            return sortedInstructor;
         }
 
+        return sortedInstructor;
+    }
 
 
     /**
@@ -127,7 +127,7 @@ public class CourseGraderData {
     public static ArrayList<CourseProperties> numberSort(List<CourseProperties> input, int maxCourseNumber, int minCourseNumber) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if(minCourseNumber < 0 || maxCourseNumber < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
+        if (minCourseNumber < 0 || maxCourseNumber < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
 
         if (minCourseNumber > maxCourseNumber) {
             int temp = minCourseNumber;
@@ -160,7 +160,7 @@ public class CourseGraderData {
     public static ArrayList<CourseProperties> numberStudentsSort(List<CourseProperties> input, int minStudent, int maxStudent) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if(minStudent < 0 || maxStudent < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
+        if (minStudent < 0 || maxStudent < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
         if (minStudent > maxStudent) {
             int temp = minStudent;
             minStudent = maxStudent;
@@ -199,7 +199,7 @@ public class CourseGraderData {
     public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input, double minAvg, double maxAvg) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if(minAvg < 0 || maxAvg < 0) {
+        if (minAvg < 0 || maxAvg < 0) {
             throw new IllegalArgumentException(Errors.DOUBLE_ERROR);
         }
         if (minAvg > maxAvg) {
@@ -296,7 +296,7 @@ public class CourseGraderData {
 
         }
         if (i == -1 || j == -1) {
-            throw new IllegalArgumentException("Please enter Correct Grade");
+            throw new IllegalArgumentException(Errors.STRING_ERROR);
         }
 
 

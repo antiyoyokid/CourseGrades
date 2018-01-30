@@ -120,10 +120,12 @@ public class CourseGraderTest {
      * TESTS FROM JSON FILES*************************************************************************************************************
      * **********************************************************************************************************************************
      */
+    private String[] files = {"Fake1.json", "Fake2.json"};
+
     @Test
     public void combineFile() {
-        String[] lol = {"Fake2.json", "Fake1.json"};
-        List<CourseProperties> aishik = CourseGraderData.combineData(lol);
+
+        List<CourseProperties> aishik = CourseGraderData.combineData(files);
         assertEquals(17, aishik.size());
     }
 
@@ -131,25 +133,25 @@ public class CourseGraderTest {
     @Test
     public void SubjectFile() {
         String[] subjects = {"AAS", "ABE", "ABE", "ABE", "ABE", "ABE", "ABE", "ACCY"};
-        List<String> please = new ArrayList<String>(Arrays.asList(subjects));
+        List<String> subjectList = new ArrayList<String>(Arrays.asList(subjects));
 
 
-        String[] lol = {"Fake2.json"};
-        List<CourseProperties> aishik = new ArrayList<CourseProperties>();
-        aishik = CourseGraderData.combineData(lol);
+        String[] file1 = {"Fake2.json"};
+        List<CourseProperties> subjectSorted = new ArrayList<CourseProperties>();
+        subjectSorted = CourseGraderData.combineData(file1);
         ArrayList<String> work = new ArrayList<>();
-        for (CourseProperties index : aishik) {
+        for (CourseProperties index : subjectSorted) {
 
             work.add(index.getSubject());
 
         }
 
-        assertEquals(please, work);
+        assertEquals(subjectList, work);
 
 
     }
 
-    private String[] files = {"Fake1.json", "Fake2.json"};
+
 
     @Test
     public void subjectSort()
@@ -200,6 +202,16 @@ public class CourseGraderTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidEasySimpleSort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        double high = -4.00;
+        double low = 3.82;
+        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(trial2, low, high);
+        assertEquals(51932, test.get(0).getCRN());
+
+    }
+
     @Test
     public void mostASort() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
@@ -230,11 +242,24 @@ public class CourseGraderTest {
         assertEquals(36, total);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    /**
+     * Wrong Input for Grades
+     */
+    public void wrongGradeStudents() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles1);
+        String aPlus = "A+";
+        String a = "O+";
+
+        int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
+        assertEquals("",total);
+    }
+
     @Test
     /**
      * Checking to see if higher and lower grades are given in reverse order
      */
-    public void gradeStudents1() {
+    public void gradeStudentsFlipped() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles1);
         String aPlus = "A";
         String a = "A+";
@@ -242,6 +267,7 @@ public class CourseGraderTest {
         int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
         assertEquals(36, total);
     }
+
 
     @Test
     public void weightedAverage() {
