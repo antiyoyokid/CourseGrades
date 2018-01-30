@@ -166,6 +166,49 @@ public class CourseGraderTest {
         List<CourseProperties> test = CourseGraderData.numberStudentsSort(trial2,low,high);
         assertEquals(58861, test.get(0).getCRN());
     }
+    @Test
+    public void easySimpleSort(){
+        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        double high = 4.00;
+        double low = 3.82;
+        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(trial2,low,high);
+        assertEquals(51932, test.get(0).getCRN());
+
+    }
+    @Test
+    public void mostASort(){
+        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        int mostAces = 11 ;
+        List<CourseProperties> test = CourseGraderData.mostAces(trial2,mostAces);
+        assertEquals(51932, test.get(0).getCRN());
+    }
+    String[] fakeFiles =  {"Fake3.json"};
+    @Test
+    public void totalStudents(){
+        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles);
+
+        int total = CourseGraderData.numberTotalStudentsSort(trial2);
+        assertEquals(154, total);
+    }
+    String[] fakeFiles1 =  {"Fake4.json"};
+    @Test
+    public void gradeStudents(){
+        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles1);
+        String aPlus = "A+";
+        String a = "A";
+
+        int total = CourseGraderData.StudentbyGrades(trial2,a,aPlus);
+        assertEquals(2, total); //just reads first line?
+    }
+
+    @Test
+    public void weightedAverage(){
+        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles);
+
+        double mean = CourseGraderData.weightedMean(trial2);
+        assertEquals(2.91, mean,0.01);
+    }
+
 
 
 

@@ -1,0 +1,5 @@
+[
+
+  { "CRN": 57478, "Subject": "ABE", "Number": 488, "Title": "Bioprocessing Biomass for Fuel", "Section": "VS", "Type": "LEC", "Term": 120138, "Instructor": "Singh, Vijay", "Grades": [0, 5, 9, 6, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0], "Average": 3.47 },
+  { "CRN": 29670, "Subject": "ACCY", "Number": 200, "Title": "Fundamentals of Accounting", "Section": "A", "Type": "LCD", "Term": 120138, "Instructor": "Silhan, Peter A", "Grades": [2, 29, 20, 20, 16, 15, 15, 9, 4, 2, 1, 2, 3, 0], "Average": 3.02 }
+]

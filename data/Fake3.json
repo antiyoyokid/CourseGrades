@@ -1,0 +1,4 @@
+[
+  { "CRN": 51932, "Subject": "AAS", "Number": 100, "Title": "Intro Asian American Studies", "Section": "AD6", "Type": "DIS", "Term": 120138, "Instructor": "Thomas, Merin A", "Grades": [12, 14, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0], "Average": 3.83 },
+  { "CRN": 58861, "Subject": "VM", "Number": 610, "Title": "Medicine and Surgery II", "Section": "AL1", "Type": "LEC", "Term": 120138, "Instructor": "Ridgway, Marcella D", "Grades": [0, 9, 0, 0, 64, 0, 0, 46, 0, 0, 2, 0, 0, 0], "Average": 2.66 }
+]
