@@ -176,7 +176,7 @@ public class CourseGraderTest {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
         int high = 102;
         int low = 98;
-        List<CourseProperties> test = CourseGraderData.numberSort(trial2, low, high);
+        List<CourseProperties> test = CourseGraderData.numberSort(trial2, high, low);
         assertEquals(51932, test.get(0).getCRN());
 
     }
