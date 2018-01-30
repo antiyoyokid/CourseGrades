@@ -1,8 +1,8 @@
-import com.google.gson.annotations.SerializedName;
 
 public class CourseProperties {
     /**
      * List of Data Fields in the array
+     * Used Caps to match data in json files
      */
     private String Subject;
     private String Title;
@@ -19,6 +19,10 @@ public class CourseProperties {
 
     }
 
+    /**
+     * Automatic Generation of Getters for the above Data.
+     *
+     */
     public String getSubject() {
         return Subject;
     }

@@ -18,14 +18,24 @@ public class CourseGraderData {
      */
 
 
-    public static ArrayList<CourseProperties> combinedData(String[] input) {
+    public static ArrayList<CourseProperties> combineData(String[] input) {
+
+        if (input.length == 0) throw new IllegalArgumentException(Errors.STRING_ARRAY_ERROR);
+
+        if(input == null)  throw new IllegalArgumentException(Errors.STRING_ARRAY_ERROR);
+
 
         List<String> dataFileNames = Arrays.asList(input);
 
         ArrayList<CourseProperties> myCourses = new ArrayList<>();
         Gson test = new Gson();
+        /*
+        Perhaps the most powerful line in this entire program. Returns arrayList combining JSON files
+        Converts dataFile to string, Json makes string into Array, to make the program work Array to ArrayList
+         */
         for (int i = 0; i < dataFileNames.size(); i++) {
-            ArrayList<CourseProperties> combined = new ArrayList<>(Arrays.asList(test.fromJson(Data.getFileContentsAsString(dataFileNames.get(i)), CourseProperties[].class)));
+            ArrayList<CourseProperties> combined = new ArrayList<>(Arrays.asList(test.fromJson
+                    (Data.getFileContentsAsString(dataFileNames.get(i)), CourseProperties[].class)));
 
             myCourses.addAll(combined);
         }
@@ -35,6 +45,8 @@ public class CourseGraderData {
     /**
      * **********************************************************************************************************************************************
      * METHODS IN PART 3 OF CODING ASSIGNMENT
+     *
+     * - most of the methods use for each loop and return a new ArrayList by modifying the initial ArrayList
      * **********************************************************************************************************************************************
      *
      * @param input   ArrayList containing all courses
@@ -43,6 +55,9 @@ public class CourseGraderData {
      */
 
     public static ArrayList<CourseProperties> subjectSort(List<CourseProperties> input, String subject) {
+
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedSubjects = new ArrayList<>();
 
@@ -62,7 +77,9 @@ public class CourseGraderData {
      * @param partOfName String that contains search term for instructor
      * @return ArrayList name of all matching instructors with the search term
      */
-    public static ArrayList<CourseProperties> instructortSort(List<CourseProperties> input, String partOfName) {
+    public static ArrayList<CourseProperties> instructorSort(List<CourseProperties> input, String partOfName) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedInstructor = new ArrayList<>();
 
@@ -84,6 +101,8 @@ public class CourseGraderData {
      * @return ArrayList of courses that fall within the max and min course numbers
      */
     public static ArrayList<CourseProperties> numberSort(List<CourseProperties> input, int maxCourseNumber, int minCourseNumber) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedNumber = new ArrayList<>();
 
@@ -106,6 +125,8 @@ public class CourseGraderData {
      * @return ArrayList of all courses that have students between max and min
      */
     public static ArrayList<CourseProperties> numberStudentsSort(List<CourseProperties> input, int minStudent, int maxStudent) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedStudentNumber = new ArrayList<>();
 
@@ -136,6 +157,8 @@ public class CourseGraderData {
      */
 
     public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input, double minAvg, double maxAvg) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedSimpleEasy = new ArrayList<>();
 
@@ -156,6 +179,8 @@ public class CourseGraderData {
      * @return Arraylist with courses that have greater than a certain number of A+
      */
     public static ArrayList<CourseProperties> mostAces(List<CourseProperties> input, int minAplus) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         ArrayList<CourseProperties> sortedMostAPlus = new ArrayList<>();
 
@@ -181,6 +206,8 @@ public class CourseGraderData {
      */
 
     public static int numberTotalStudentsSort(List<CourseProperties> input) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         int sum = 0;
         for (CourseProperties index : input) {
 
@@ -196,102 +223,42 @@ public class CourseGraderData {
      *
      *
      * @param input ArrayList containing all Course information
-     * @param lowGrade
-     * @param highGrade
-     * @return
+     * @param lowGrade Worser Grade
+     * @param highGrade Better Grade
+     * @return number of students who have a range of Grades between low and high Grades.
      */
     public static int StudentbyGrades(List<CourseProperties> input, String lowGrade, String highGrade) {
-        int i = 0;
-        int j = 0;
-        if (lowGrade.equals("A+")) {
-            i = 0;
-        }
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
-        if (lowGrade.equals("A")) {
-            i = 1;
-        }
-        if (lowGrade.equals("A-")) {
-            i = 2;
-        }
-        if (lowGrade.equals("B+")) {
-            i = 3;
-        }
-        if (lowGrade.equals("B+")) {
-            i = 4;
-        }
-        if (lowGrade.equals("B-")) {
-            i = 5;
-        }
-        if (lowGrade.equals("C+")) {
-            i = 6;
-        }
-        if (lowGrade.equals("C")) {
-            i = 7;
-        }
-        if (lowGrade.equals("C-")) {
-            i = 8;
-        }
-        if (lowGrade.equals("D+")) {
-            i = 9;
-        }
-        if (lowGrade.equals("D")) {
-            i = 10;
-        }
-        if (lowGrade.equals("D-")) {
-            i = 11;
-        }
-        if (lowGrade.equals("F")) {
-            i = 12;
-        }
-        if (lowGrade.equals("W")) {
-            i = 13;
-        }
+        int i = -1;
+        int j = -1;
+        String[] letterGrades = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "W"};
 
-        if (highGrade.equals("A+")) {
-            j = 0;
-        }
+            for(int k = 0; k<letterGrades.length; k++) {
+                if(lowGrade.equals(letterGrades[k])) {
+                    i = k;
+                }
+                if(highGrade.equals(letterGrades[k])){
+                     j = k;
+                }
 
-        if (highGrade.equals("A")) {
-            j = 1;
-        }
-        if (highGrade.equals("A-")) {
-            i = 2;
-        }
-        if (highGrade.equals("B+")) {
-            j = 3;
-        }
-        if (highGrade.equals("B+")) {
-            j = 4;
-        }
-        if (highGrade.equals("B-")) {
-            j = 5;
-        }
-        if (highGrade.equals("C+")) {
-            i = 6;
-        }
-        if (highGrade.equals("C")) {
-            j = 7;
-        }
-        if (highGrade.equals("C-")) {
-            j = 8;
-        }
-        if (highGrade.equals("D+")) {
-            j = 9;
-        }
-        if (highGrade.equals("D")) {
-            j = 10;
-        }
-        if (highGrade.equals("D-")) {
-            j = 11;
-        }
-        if (highGrade.equals("F")) {
-            j = 12;
-        }
-        if (highGrade.equals("W")) {
-            j = 13;
-        }
+
+            }
+            if(i==-1 || j== -1) {
+                throw new IllegalArgumentException("Please enter Correct Grade");
+            }
+
 
         int sum = 0;
+
+        if(j > i) {
+            int temp = j;
+            j = i;
+            i = temp;
+
+        }
+
         for (CourseProperties index : input) {
 
             for (int count = j; count <= i; count++) {
@@ -310,10 +277,12 @@ public class CourseGraderData {
      * @return mean weighted average combining all Courses
      */
     public static double weightedMean(List<CourseProperties> input) {
+        if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+        if(input == null)  throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
         double sum = 0;
-        int studentsEachCourse = 0;
-        double weightedGradeAverage = 0;
+        int studentsEachCourse;
+        double weightedGradeAverage;
 
         for (CourseProperties index : input) {
             for (int i = 0; i < index.getGrades().length; i++) {
@@ -326,7 +295,6 @@ public class CourseGraderData {
         return weightedGradeAverage;
 
     }
-
 
 }
 
