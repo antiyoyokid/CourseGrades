@@ -1,8 +1,9 @@
 import com.google.gson.annotations.SerializedName;
 
 public class CourseProperties {
-
-    @SerializedName("Subject")
+    /**
+     * List of Data Fields in the array
+     */
     private String Subject;
     private String Title;
     private String Section;
