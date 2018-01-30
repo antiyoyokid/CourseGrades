@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class CourseGraderTest {
 
-    private static final String TESTER_ARRAY = "[{ \"CRN\": 41758, \"Subject\": \"AAS\", \"Number\": 100, \"Title\": \"Intro Asian American Studies\", \"Section\": \"AD1\", \"Type\": \"DIS\", \"Term\": 120138, \"Instructor\": \"Arai, Sayuri\", \"Grades\": [6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0], \"Average\": 3.72 }, {]";
+    private static final String TESTER_ARRAY = "[{ \"CRN\": 41758, \"Subject\": \"AAS\", \"Number\": 100, \"Title\": \"Intro Asian American Studies\", \"Section\": \"AD1\", \"Type\": \"DIS\", \"Term\": 120138, \"Instructor\": \"Arai, Sayuri\", \"Grades\": [6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0], \"Average\": 3.72 } ]";
 
     private static final String TESTER_JSON = "{\n" +
             "   \"CRN\":41758,\n" +
@@ -42,6 +42,7 @@ public class CourseGraderTest {
 
 
     private static CourseProperties courseGrader;
+    private static CourseProperties courseGraderArray[];
 
     @Before
     public void setUp() {
@@ -86,8 +87,9 @@ public class CourseGraderTest {
     @Test
     public void getGrades() {
         Gson localGson = new Gson();
-        CourseProperties[] courseGraderArray = localGson.fromJson(TESTER_ARRAY, CourseProperties[].class);
-        assertArrayEquals(new int[]{6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0}, courseGraderArray[0].getGrades());
+        courseGraderArray = localGson.fromJson(TESTER_ARRAY, CourseProperties[].class);
+        int[] arrayTestGrades = {6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0};
+        assertArrayEquals(arrayTestGrades, courseGraderArray[0].getGrades());
     }
 
     @Test
@@ -99,7 +101,7 @@ public class CourseGraderTest {
     public void combineFile() {
         String[] lol = {"Fake2.json", "Fake1.json"};
         List<CourseProperties> aishik = new ArrayList<CourseProperties>();
-        aishik = CourseGraderData.allData(lol);
+        aishik = CourseGraderData.combinedData(lol);
         for (CourseProperties index : aishik) {
 
         }
@@ -114,7 +116,7 @@ public class CourseGraderTest {
 
         String[] lol = {"Fake2.json"};
         List<CourseProperties> aishik = new ArrayList<CourseProperties>();
-        aishik = CourseGraderData.allData(lol);
+        aishik = CourseGraderData.combinedData(lol);
         ArrayList<String> work = new ArrayList<>();
         for (CourseProperties index : aishik) {
 
@@ -133,7 +135,7 @@ public class CourseGraderTest {
 
     {
         List<CourseProperties> trial2;
-        trial2 = CourseGraderData.allData(files);
+        trial2 = CourseGraderData.combinedData(files);
         String subject = "VM";
 
         List<CourseProperties> test = CourseGraderData.subjectSort(trial2, subject);
@@ -142,7 +144,7 @@ public class CourseGraderTest {
     @Test
     public void instructorSort()
     {
-        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(files);
         String instructor = "Grift";
         List<CourseProperties> test = CourseGraderData.instructortSort(trial2, instructor);
         assertEquals(58927, test.get(0).getCRN());
@@ -150,7 +152,7 @@ public class CourseGraderTest {
 
     @Test
     public void numberSort (){
-        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(files);
         int high = 102;
         int low = 98;
         List<CourseProperties> test = CourseGraderData.numberSort(trial2,low,high);
@@ -160,7 +162,7 @@ public class CourseGraderTest {
 
     @Test
     public void numberStudents(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(files);
         int high = 121;
         int low = 121;
         List<CourseProperties> test = CourseGraderData.numberStudentsSort(trial2,low,high);
@@ -168,7 +170,7 @@ public class CourseGraderTest {
     }
     @Test
     public void easySimpleSort(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(files);
         double high = 4.00;
         double low = 3.82;
         List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(trial2,low,high);
@@ -177,7 +179,7 @@ public class CourseGraderTest {
     }
     @Test
     public void mostASort(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(files);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(files);
         int mostAces = 11 ;
         List<CourseProperties> test = CourseGraderData.mostAces(trial2,mostAces);
         assertEquals(51932, test.get(0).getCRN());
@@ -185,7 +187,7 @@ public class CourseGraderTest {
     String[] fakeFiles =  {"Fake3.json"};
     @Test
     public void totalStudents(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(fakeFiles);
 
         int total = CourseGraderData.numberTotalStudentsSort(trial2);
         assertEquals(154, total);
@@ -193,17 +195,17 @@ public class CourseGraderTest {
     String[] fakeFiles1 =  {"Fake4.json"};
     @Test
     public void gradeStudents(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles1);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(fakeFiles1);
         String aPlus = "A+";
         String a = "A";
 
         int total = CourseGraderData.StudentbyGrades(trial2,a,aPlus);
-        assertEquals(2, total); //just reads first line?
+        assertEquals(36, total);
     }
 
     @Test
     public void weightedAverage(){
-        List<CourseProperties> trial2 = CourseGraderData.allData(fakeFiles);
+        List<CourseProperties> trial2 = CourseGraderData.combinedData(fakeFiles);
 
         double mean = CourseGraderData.weightedMean(trial2);
         assertEquals(2.91, mean,0.01);
