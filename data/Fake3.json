@@ -1,4 +1,7 @@
 [
-  { "CRN": 51932, "Subject": "AAS", "Number": 100, "Title": "Intro Asian American Studies", "Section": "AD6", "Type": "DIS", "Term": 120138, "Instructor": "Thomas, Merin A", "Grades": [12, 14, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0], "Average": 3.83 },
-  { "CRN": 58861, "Subject": "VM", "Number": 610, "Title": "Medicine and Surgery II", "Section": "AL1", "Type": "LEC", "Term": 120138, "Instructor": "Ridgway, Marcella D", "Grades": [0, 9, 0, 0, 64, 0, 0, 46, 0, 0, 2, 0, 0, 0], "Average": 2.66 }
+  { "CRN": 60710, "Subject": "FIN", "Number": 580, "Title": "Real Estate Financial Markets", "Section": "RF1", "Type": "LCD", "Term": 120141, "Instructor": "Chinco, Alexander M", "Grades": [10, 6, 3, 1, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0], "Average": 3.71 },
+  { "CRN": 60711, "Subject": "FIN", "Number": 580, "Title": "Real Estate Financial Markets", "Section": "RF2", "Type": "LCD", "Term": 120141, "Instructor": "Chinco, Alexander M", "Grades": [15, 5, 5, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], "Average": 3.8 },
+  { "CRN": 46819, "Subject": "FIN", "Number": 580, "Title": "Risk Management", "Section": "RM", "Type": "LCD", "Term": 120141, "Instructor": "Pearson, Neil D", "Grades": [1, 27, 4, 7, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0], "Average": 3.73 },
+  { "CRN": 58606, "Subject": "FR", "Number": 156, "Title": "Exploring Paris", "Section": "D", "Type": "LCD", "Term": 120141, "Instructor": "Mathy, Jean-Philippe R", "Grades": [0, 16, 18, 18, 9, 2, 0, 1, 0, 0, 1, 0, 2, 0], "Average": 3.36 },
+  { "CRN": 50089, "Subject": "FR", "Number": 418, "Title": "Language&Minorities in Europe", "Section": "1U", "Type": "LCD", "Term": 120141, "Instructor": "Fagyal, Zsuzsanna", "Grades": [0, 10, 12, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1], "Average": 3.59 }
 ]

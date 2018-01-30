@@ -59,7 +59,7 @@ public class CourseGraderData {
     public static ArrayList<CourseProperties> subjectSort(List<CourseProperties> input, String subject) {
 
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
         /**
          * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
          */
@@ -92,7 +92,7 @@ public class CourseGraderData {
      */
     public static ArrayList<CourseProperties> instructorSort(List<CourseProperties> input, String partOfName) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
         /**
          * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
          */
@@ -126,7 +126,6 @@ public class CourseGraderData {
      */
     public static ArrayList<CourseProperties> numberSort(List<CourseProperties> input, int maxCourseNumber, int minCourseNumber) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minCourseNumber < 0 || maxCourseNumber < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
 
         if (minCourseNumber > maxCourseNumber) {
@@ -141,7 +140,7 @@ public class CourseGraderData {
 
         for (CourseProperties index : input) {
 
-            if (index.getNumber() < maxCourseNumber && index.getNumber() > minCourseNumber) {
+            if (index.getNumber() <= maxCourseNumber && index.getNumber() >= minCourseNumber) {
 
                 sortedNumber.add(index);
             }
@@ -159,7 +158,6 @@ public class CourseGraderData {
      */
     public static ArrayList<CourseProperties> numberStudentsSort(List<CourseProperties> input, int minStudent, int maxStudent) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minStudent < 0 || maxStudent < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
         if (minStudent > maxStudent) {
             int temp = minStudent;
@@ -198,7 +196,6 @@ public class CourseGraderData {
 
     public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input, double minAvg, double maxAvg) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minAvg < 0 || maxAvg < 0) {
             throw new IllegalArgumentException(Errors.DOUBLE_ERROR);
         }
@@ -212,7 +209,7 @@ public class CourseGraderData {
         ArrayList<CourseProperties> sortedSimpleEasy = new ArrayList<>();
 
         for (CourseProperties index : input) {
-            if (index.getAverage() > minAvg && index.getAverage() < maxAvg) {
+            if (index.getAverage() >= minAvg && index.getAverage() <= maxAvg) {
 
                 sortedSimpleEasy.add(index);
             }
@@ -229,7 +226,6 @@ public class CourseGraderData {
      */
     public static ArrayList<CourseProperties> mostAces(List<CourseProperties> input, int minAplus) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minAplus < 0) {
             throw new IllegalArgumentException(Errors.INT_ERROR);
         }
@@ -259,7 +255,6 @@ public class CourseGraderData {
 
     public static int numberTotalStudentsSort(List<CourseProperties> input) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         int sum = 0;
         for (CourseProperties index : input) {
 
@@ -279,7 +274,7 @@ public class CourseGraderData {
      */
     public static int StudentbyGrades(List<CourseProperties> input, String lowGrade, String highGrade) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
 
         int i = -1;
         int j = -1;
@@ -327,7 +322,7 @@ public class CourseGraderData {
      */
     public static double weightedMean(List<CourseProperties> input) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (input == null) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
 
         double sum = 0;
         int studentsEachCourse;

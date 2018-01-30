@@ -47,9 +47,6 @@ public class CourseGraderTest {
             "   }";
 
 
-
-
-
     private static CourseProperties courseGrader;
     private static CourseProperties courseGraderArray[];
 
@@ -99,12 +96,14 @@ public class CourseGraderTest {
         assertEquals(120138, courseGrader.getTerm());
 
     }
+
     @Test
     public void getAverage() {
         assertEquals(3.72, courseGrader.getAverage(), 0.01);
 
 
     }
+
     @Test
     public void getGrades() {
         Gson localGson = new Gson();
@@ -114,31 +113,30 @@ public class CourseGraderTest {
     }
 
 
-
     /**
      * **********************************************************************************************************************************
      * TESTS FROM JSON FILES*************************************************************************************************************
      * **********************************************************************************************************************************
      */
-    private String[] files = {"Fake1.json", "Fake2.json"};
+    private String[] files = {"Fake1.json", "Fake2.json", "Fake3.json", "Fake4.json"};
 
     @Test
     public void combineFile() {
 
-        List<CourseProperties> aishik = CourseGraderData.combineData(files);
-        assertEquals(17, aishik.size());
+        List<CourseProperties> combinedList = CourseGraderData.combineData(files);
+        assertEquals(18, combinedList.size());
     }
 
 
     @Test
     public void SubjectFile() {
-        String[] subjects = {"AAS", "ABE", "ABE", "ABE", "ABE", "ABE", "ABE", "ACCY"};
+        String[] subjects = {"ABE", "ABE", "PSYC", "SHS", "VM", "AAS", "ABE", "ACCY", "FIN", "FIN",
+                "FIN", "FR", "FR", "CPSC", "CS", "CS", "CS", "CS"};
         List<String> subjectList = new ArrayList<String>(Arrays.asList(subjects));
 
 
-        String[] file1 = {"Fake2.json"};
-        List<CourseProperties> subjectSorted = new ArrayList<CourseProperties>();
-        subjectSorted = CourseGraderData.combineData(file1);
+        List<CourseProperties> subjectSorted;
+        subjectSorted = CourseGraderData.combineData(files);
         ArrayList<String> work = new ArrayList<>();
         for (CourseProperties index : subjectSorted) {
 
@@ -150,7 +148,6 @@ public class CourseGraderTest {
 
 
     }
-
 
 
     @Test
@@ -165,10 +162,54 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+
+    @Test
+    public void multipleSubjectSort()
+
+    {
+        List<CourseProperties> trial2;
+        trial2 = CourseGraderData.combineData(files);
+        String subject = "CS";
+
+        List<CourseProperties> test = CourseGraderData.subjectSort(trial2, subject);
+
+        assertEquals(31129, test.get(3).getCRN());
+
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidSubjectSort()
+
+    {
+        List<CourseProperties> trial2;
+        trial2 = CourseGraderData.combineData(files);
+        String subject = "VM8";
+
+        List<CourseProperties> test = CourseGraderData.subjectSort(trial2, subject);
+        assertEquals(58861, test.get(0).getCRN());
+    }
+
     @Test
     public void instructorSort() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
-        String instructor = "Grift";
+        String instructor = "Neil";
+        List<CourseProperties> test = CourseGraderData.instructorSort(trial2, instructor);
+        assertEquals(46819, test.get(0).getCRN());
+    }
+
+    @Test
+    public void multipleInstructorSort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        String instructor = "Chin";
+        List<CourseProperties> test = CourseGraderData.instructorSort(trial2, instructor);
+        assertEquals(60711, test.get(1).getCRN());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInstructorSort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        String instructor = "Gr12*ift";
         List<CourseProperties> test = CourseGraderData.instructorSort(trial2, instructor);
         assertEquals(58927, test.get(0).getCRN());
     }
@@ -176,15 +217,43 @@ public class CourseGraderTest {
     @Test
     public void numberSort() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
-        int high = 102;
-        int low = 98;
+        int high = 157;
+        int low = 155;
         List<CourseProperties> test = CourseGraderData.numberSort(trial2, high, low);
-        assertEquals(51932, test.get(0).getCRN());
+        assertEquals(58606, test.get(0).getCRN());
+
+    }
+    @Test
+    public void multipleNumberSort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        int high = 580;
+        int low = 580;
+        List<CourseProperties> test = CourseGraderData.numberSort(trial2, high, low);
+        assertEquals(60711, test.get(1).getCRN());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidNumberSort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        int high = 0;
+        int low = -580;
+        List<CourseProperties> test = CourseGraderData.numberSort(trial2, high, low);
+        assertEquals(60711, test.get(1).getCRN());
 
     }
 
     @Test
     public void numberStudents() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        int high = 30;
+        int low = 30;
+        List<CourseProperties> test = CourseGraderData.numberStudentsSort(trial2, low, high);
+        assertEquals(60711, test.get(0).getCRN());
+    }
+
+    @Test
+    public void multipleNumberStudents() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
         int high = 121;
         int low = 121;
@@ -192,13 +261,22 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidNumberStudents() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        int high = 121;
+        int low = -121;
+        List<CourseProperties> test = CourseGraderData.numberStudentsSort(trial2, low, high);
+        assertEquals(58861, test.get(0).getCRN());
+    }
+
     @Test
     public void easySimpleSort() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
-        double high = 4.00;
-        double low = 3.82;
+        double high = 3.08;
+        double low = 3.08;
         List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(trial2, low, high);
-        assertEquals(51932, test.get(0).getCRN());
+        assertEquals(31020, test.get(0).getCRN());
 
     }
 
@@ -215,66 +293,95 @@ public class CourseGraderTest {
     @Test
     public void mostASort() {
         List<CourseProperties> trial2 = CourseGraderData.combineData(files);
-        int mostAces = 11;
+        int mostAces = 56;
         List<CourseProperties> test = CourseGraderData.mostAces(trial2, mostAces);
-        assertEquals(51932, test.get(0).getCRN());
+        assertEquals(31018, test.get(0).getCRN());
     }
 
-    private String[] fakeFiles = {"Fake3.json"};
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidMostASort() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
+        int mostAces = -56;
+        List<CourseProperties> test = CourseGraderData.mostAces(trial2, mostAces);
+        assertEquals(31018, test.get(0).getCRN());
+    }
+
+
 
     @Test
     public void totalStudents() {
-        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles);
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
 
         int total = CourseGraderData.numberTotalStudentsSort(trial2);
-        assertEquals(154, total);
+        assertEquals(1718, total);
     }
 
-    private String[] fakeFiles1 = {"Fake4.json"};
+
+    private String[] empty = {};
+    private String[] nothing = {null};
 
     @Test
     public void gradeStudents() {
-        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles1);
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
         String aPlus = "A+";
         String a = "A";
 
         int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
-        assertEquals(36, total);
+        assertEquals(554, total);
     }
 
     @Test(expected = IllegalArgumentException.class)
     /**
      * Wrong Input for Grades
      */
-    public void wrongGradeStudents() {
-        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles1);
+    public void invalidGradeStudents() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
         String aPlus = "A+";
         String a = "O+";
 
         int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
-        assertEquals("",total);
+        assertEquals("", total);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidGradeStudents1() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(empty);
+        String aPlus = "A+";
+        String a = "O+";
+
+        int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
+        assertEquals("", total);
+    }
+
 
     @Test
     /**
      * Checking to see if higher and lower grades are given in reverse order
      */
     public void gradeStudentsFlipped() {
-        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles1);
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
         String aPlus = "A";
         String a = "A+";
 
         int total = CourseGraderData.StudentbyGrades(trial2, a, aPlus);
-        assertEquals(36, total);
+        assertEquals(554, total);
     }
 
 
     @Test
     public void weightedAverage() {
-        List<CourseProperties> trial2 = CourseGraderData.combineData(fakeFiles);
+        List<CourseProperties> trial2 = CourseGraderData.combineData(files);
 
         double mean = CourseGraderData.weightedMean(trial2);
-        assertEquals(2.91, mean, 0.01);
+        assertEquals(3.22, mean, 0.01);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidWeightedAverage() {
+        List<CourseProperties> trial2 = CourseGraderData.combineData(empty);
+
+        double mean = CourseGraderData.weightedMean(trial2);
+        assertEquals(3.22, mean, 0.01);
     }
 
 
