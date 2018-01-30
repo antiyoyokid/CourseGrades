@@ -17,14 +17,13 @@ public class CourseGraderData {
      * @param input is a String array of file names
      * @return arrayList with all the Data combined together
      * Combines several json files together and leaves it as arrayList
+     * Also handles exceptions if input String is empty
      */
 
 
     public static ArrayList<CourseProperties> combineData(String[] input) {
 
         if (input.length == 0) throw new IllegalArgumentException(Errors.STRING_ARRAY_ERROR);
-
-        if (input == null) throw new IllegalArgumentException(Errors.STRING_ARRAY_ERROR);
 
 
         List<String> dataFileNames = Arrays.asList(input);
@@ -60,14 +59,14 @@ public class CourseGraderData {
 
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
-        /**
-         * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
+        /*
+          From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
          */
         subject = subject.toUpperCase();
         Pattern p = Pattern.compile("^[a-zA-Z, ]*$");
         Matcher m = p.matcher(subject);
         boolean b = m.matches();
-        if (b == false) {
+        if (!b) {
             throw new IllegalArgumentException(Errors.STRING_ERROR);
         }
 
@@ -93,13 +92,15 @@ public class CourseGraderData {
     public static ArrayList<CourseProperties> instructorSort(List<CourseProperties> input, String partOfName) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
-        /**
+        /*
          * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
+         * This code checks if the partOfName string only contains letters and space and commas
          */
+
         Pattern p = Pattern.compile("^[a-zA-Z, ]*$");
         Matcher m = p.matcher(partOfName);
         boolean b = m.matches();
-        if (b == false) {
+        if (!b) {
             throw new IllegalArgumentException(Errors.STRING_ERROR);
         }
 
@@ -123,10 +124,11 @@ public class CourseGraderData {
      * @param minCourseNumber minimum course number
      * @param maxCourseNumber maximum course number
      * @return ArrayList of courses that fall within the max and min course numbers
+     * Method also takes care of errors if the integers are less than 0.
      */
     public static ArrayList<CourseProperties> numberSort(List<CourseProperties> input, int maxCourseNumber, int minCourseNumber) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
-        if (minCourseNumber < 0 || maxCourseNumber < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
+        if (minCourseNumber <= 0 || maxCourseNumber <= 0) throw new IllegalArgumentException(Errors.INT_ERROR);
 
         if (minCourseNumber > maxCourseNumber) {
             int temp = minCourseNumber;
@@ -155,6 +157,8 @@ public class CourseGraderData {
      * @param minStudent minimum number of Students in course
      * @param maxStudent maximum number of Students in course
      * @return ArrayList of all courses that have students between max and min
+     * Swaps max and min if min is greater than max, so the way you enter data doesn't matter
+     * Takes care of min and max incase min is greater than
      */
     public static ArrayList<CourseProperties> numberStudentsSort(List<CourseProperties> input, int minStudent, int maxStudent) {
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
@@ -168,7 +172,9 @@ public class CourseGraderData {
 
         ArrayList<CourseProperties> sortedStudentNumber = new ArrayList<>();
 
-
+    /*
+    For loop to print List within the given range of students
+     */
         for (CourseProperties index : input) {
 
             int sum = 0;
@@ -192,6 +198,9 @@ public class CourseGraderData {
      * @param minAvg minimum average of Course
      * @param maxAvg maximum average of Course
      * @return ArrayList of courses that satisfy the max and min averages
+     *
+     * Swaps max and min if min greater than max
+     *
      */
 
     public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input, double minAvg, double maxAvg) {
