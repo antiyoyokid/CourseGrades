@@ -286,7 +286,7 @@ public class CourseGraderTest {
     }
 
     /**
-     * Tests exception due to bad input of Instructor string
+     * Bad input/value
      */
     @Test(expected = IllegalArgumentException.class)
     public void invalidInstructorSort() {
@@ -331,7 +331,7 @@ public class CourseGraderTest {
     }
 
     /**
-     * Testing incorrect int values
+     * Bad input/value
      */
     @Test(expected = IllegalArgumentException.class)
     public void invalidNumberSort() {
@@ -378,7 +378,7 @@ public class CourseGraderTest {
     }
 
     /**
-     * Bad values for int
+     * Bad input/value
      */
     @Test(expected = IllegalArgumentException.class)
     public void invalidNumberStudents() {
@@ -412,7 +412,7 @@ public class CourseGraderTest {
     }
 
     /**
-     * Tests for bad inputs/values
+     * Bad input/value
      */
     @Test(expected = IllegalArgumentException.class)
     public void invalidgpaSort() {
@@ -513,7 +513,7 @@ public class CourseGraderTest {
 
     @Test(expected = IllegalArgumentException.class)
     /*
-     * Wrong Input for Grades
+     * Bad input/value
      */
     public void invalidGradeStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
