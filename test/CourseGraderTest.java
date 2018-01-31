@@ -111,15 +111,18 @@ public class CourseGraderTest {
     }
 
     /**
-     * **********************************************************************************************************************************
-     * TESTS FROM JSON
-     * FILES*************************************************************************************************************
-     * **********************************************************************************************************************************
+     * *****************************************************************************************************************
+     * TESTS FROM JSON FILES********************************************************************************************
+     * *****************************************************************************************************************
+     * All my tests compare the CRN number, as its always different for each course
      */
     private String[] files = {"Fake1.json", "Fake2.json", "Fake3.json", "Fake4.json"};
     private String[] empty = {};
     private String[] nullString = {null};
 
+    /**
+     * Tests if json files combine into list by measuring the total number of courses in each file
+     */
     @Test
     public void combineFile() {
 
@@ -141,6 +144,9 @@ public class CourseGraderTest {
         assertEquals(18, combinedList.size());
     }
 
+    /**
+     * Tests all the subjects in the List
+     */
     @Test
     public void SubjectFile() {
         String[] subjects = {"ABE", "ABE", "PSYC", "SHS", "VM", "AAS", "ABE", "ACCY", "FIN", "FIN",
@@ -179,6 +185,9 @@ public class CourseGraderTest {
 
     }
 
+    /**
+     * Test to see if simple string works in SubjectSort
+     */
     @Test
     public void subjectSort()
 
@@ -203,6 +212,9 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    /**
+     * Tests if there are multiple courses in the list by calling the 3rd element on list
+     */
     @Test
     public void multipleSubjectSort()
 
@@ -241,6 +253,7 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+
     @Test
     public void instructorSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -249,6 +262,9 @@ public class CourseGraderTest {
         assertEquals(46819, test.get(0).getCRN());
     }
 
+    /**
+     * Tests multiple instructors by getting the first element of the List
+     */
     @Test
     public void multipleInstructorSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -257,7 +273,11 @@ public class CourseGraderTest {
         assertEquals(60711, test.get(1).getCRN());
     }
 
-    @Test // to see if it accepts commas
+    /**
+     * Test to see if it accepts commas, as JSON files contained a commas
+     */
+
+    @Test
     public void multipleInstructorSort2() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
         String instructor = "Zhao,";
@@ -265,6 +285,9 @@ public class CourseGraderTest {
         assertEquals(31129, test.get(1).getCRN());
     }
 
+    /**
+     * Tests exception due to bad input of Instructor string
+     */
     @Test(expected = IllegalArgumentException.class)
     public void invalidInstructorSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -281,6 +304,9 @@ public class CourseGraderTest {
         assertEquals(58927, test.get(0).getCRN());
     }
 
+    /**
+     * Test to find Subject number
+     */
     @Test
     public void numberSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -291,6 +317,9 @@ public class CourseGraderTest {
 
     }
 
+    /**
+     * Making sure if multiple cases it can access the first element of the List
+     */
     @Test
     public void multipleNumberSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -301,6 +330,9 @@ public class CourseGraderTest {
 
     }
 
+    /**
+     * Testing incorrect int values
+     */
     @Test(expected = IllegalArgumentException.class)
     public void invalidNumberSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -321,6 +353,9 @@ public class CourseGraderTest {
 
     }
 
+    /**
+     * Tests the number of students
+     */
     @Test
     public void numberStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -330,6 +365,9 @@ public class CourseGraderTest {
         assertEquals(60711, test.get(0).getCRN());
     }
 
+    /**
+     * Tests the number of students, however no classes had the same number of students
+     */
     @Test
     public void multipleNumberStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -339,6 +377,9 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    /**
+     * Bad values for int
+     */
     @Test(expected = IllegalArgumentException.class)
     public void invalidNumberStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -357,36 +398,45 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    /**
+     * Tests by GPA
+     */
     @Test
-    public void easySimpleSort() {
+    public void gpaSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
         double high = 3.08;
         double low = 3.08;
-        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(joinedData, low, high);
+        List<CourseProperties> test = CourseGraderData.meanGpaSort(joinedData, low, high);
         assertEquals(31020, test.get(0).getCRN());
 
     }
 
+    /**
+     * Tests for bad inputs/values
+     */
     @Test(expected = IllegalArgumentException.class)
-    public void invalidEasySimpleSort() {
+    public void invalidgpaSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
         double high = -4.00;
         double low = 3.82;
-        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(joinedData, low, high);
+        List<CourseProperties> test = CourseGraderData.meanGpaSort(joinedData, low, high);
         assertEquals(51932, test.get(0).getCRN());
 
     }
 
     @Test(expected = NullPointerException.class)
-    public void invalidEasySimpleSort2() {
+    public void invalidgpaSort2() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
         double high = -4.00;
         double low = 3.82;
-        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(joinedData, low, high);
+        List<CourseProperties> test = CourseGraderData.meanGpaSort(joinedData, low, high);
         assertEquals(51932, test.get(0).getCRN());
 
     }
 
+    /**
+     * Test for most A+
+     */
     @Test
     public void mostASort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -395,7 +445,10 @@ public class CourseGraderTest {
         assertEquals(31018, test.get(0).getCRN());
     }
 
-    @Test // tests multiple by accessing other indexes
+    /**
+     * Test for multple courses that have greater than 10 A+ by getting 4th element of List
+     */
+    @Test
     public void multipleMostASort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
         int mostAces = 10;
@@ -403,6 +456,9 @@ public class CourseGraderTest {
         assertEquals(31129, test.get(4).getCRN());
     }
 
+    /**
+     * Bad input/value
+     */
     @Test(expected = IllegalArgumentException.class)
     public void invalidMostASort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -479,7 +535,7 @@ public class CourseGraderTest {
     }
 
     @Test
-    /*
+    /**
      * Checking to see if higher and lower grades are given in reverse order
      */
     public void gradeStudentsFlipped() {

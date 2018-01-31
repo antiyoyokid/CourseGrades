@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 
 public class CourseGraderData {
     /**
-     * ***********************************************************************************************************************************************
+     * *****************************************************************************************************************
      * METHODS FOR PART 2 OF CODING ASSIGNMENT
-     * ***********************************************************************************************************************************************
+     * *****************************************************************************************************************
      *
      * @param input is a String array of file names
      * @return arrayList with all the Data combined together
@@ -219,7 +219,7 @@ public class CourseGraderData {
      * Swaps max and min if min greater than max
      */
 
-    public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input,
+    public static ArrayList<CourseProperties> meanGpaSort(List<CourseProperties> input,
                                                                   double minAvg, double maxAvg) {
         if (input == null)
             throw new NullPointerException(Errors.NULL_POINTER);
