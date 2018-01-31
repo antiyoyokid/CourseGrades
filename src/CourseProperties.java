@@ -20,8 +20,7 @@ public class CourseProperties {
     }
 
     /**
-     * Automatic Generation of Getters for the above Data.
-     *
+     * Automatic Generation of Getters for the above elements.
      */
     public String getSubject() {
         return Subject;
