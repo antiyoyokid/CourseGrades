@@ -120,6 +120,7 @@ public class CourseGraderTest {
      */
     private String[] files = {"Fake1.json", "Fake2.json", "Fake3.json", "Fake4.json"};
     private String[] empty = {};
+    private String[] nullString = {null};
 
     @Test
     public void combineFile() {
@@ -132,6 +133,13 @@ public class CourseGraderTest {
     public void invalidCombineFile() {
 
         List<CourseProperties> combinedList = CourseGraderData.combineData(empty);
+        assertEquals(18, combinedList.size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void invalidCombineFile1() {
+
+        List<CourseProperties> combinedList = CourseGraderData.combineData(nullString);
         assertEquals(18, combinedList.size());
     }
 
@@ -172,6 +180,8 @@ public class CourseGraderTest {
             work.add(index.getSubject());
 
         }
+
+
 
         assertEquals(subjectList, work);
 
@@ -231,6 +241,18 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void invalidSubjectSort2()
+
+    {
+        List<CourseProperties> joinedData;
+        joinedData = CourseGraderData.combineData(nullString);
+        String subject = "VM8";
+
+        List<CourseProperties> test = CourseGraderData.subjectSort(joinedData, subject);
+        assertEquals(58861, test.get(0).getCRN());
+    }
+
     @Test
     public void instructorSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -258,6 +280,14 @@ public class CourseGraderTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInstructorSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
+        String instructor = "Gr12*ift";
+        List<CourseProperties> test = CourseGraderData.instructorSort(joinedData, instructor);
+        assertEquals(58927, test.get(0).getCRN());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void invalidInstructorSort2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
         String instructor = "Gr12*ift";
         List<CourseProperties> test = CourseGraderData.instructorSort(joinedData, instructor);
         assertEquals(58927, test.get(0).getCRN());
@@ -292,7 +322,15 @@ public class CourseGraderTest {
         assertEquals(60711, test.get(1).getCRN());
 
     }
+    @Test(expected = NullPointerException.class)
+    public void invalidNumberSort2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
+        int high = 0;
+        int low = -580;
+        List<CourseProperties> test = CourseGraderData.numberSort(joinedData, high, low);
+        assertEquals(60711, test.get(1).getCRN());
 
+    }
     @Test
     public void numberStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -320,6 +358,15 @@ public class CourseGraderTest {
         assertEquals(58861, test.get(0).getCRN());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void invalidNumberStudents2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
+        int high = 121;
+        int low = -121;
+        List<CourseProperties> test = CourseGraderData.numberStudentsSort(joinedData, low, high);
+        assertEquals(58861, test.get(0).getCRN());
+    }
+
     @Test
     public void easySimpleSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
@@ -333,6 +380,16 @@ public class CourseGraderTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidEasySimpleSort() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
+        double high = -4.00;
+        double low = 3.82;
+        List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(joinedData, low, high);
+        assertEquals(51932, test.get(0).getCRN());
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void invalidEasySimpleSort2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
         double high = -4.00;
         double low = 3.82;
         List<CourseProperties> test = CourseGraderData.simpleEasyClassSort(joinedData, low, high);
@@ -364,10 +421,26 @@ public class CourseGraderTest {
         assertEquals(31018, test.get(0).getCRN());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void invalidMostASort2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
+        int mostAces = -56;
+        List<CourseProperties> test = CourseGraderData.mostAces(joinedData, mostAces);
+        assertEquals(31018, test.get(0).getCRN());
+    }
+
 
     @Test
     public void totalStudents() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
+
+        int total = CourseGraderData.numberTotalStudentsSort(joinedData);
+        assertEquals(1718, total);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void totalStudents2() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
 
         int total = CourseGraderData.numberTotalStudentsSort(joinedData);
         assertEquals(1718, total);
@@ -407,9 +480,9 @@ public class CourseGraderTest {
         assertEquals(0, total);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void invalidGradeStudents1() {
-        List<CourseProperties> joinedData = CourseGraderData.combineData(empty);
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
         String aPlus = "A+";
         String a = "O+";
 
@@ -435,6 +508,14 @@ public class CourseGraderTest {
     @Test
     public void weightedAverage() {
         List<CourseProperties> joinedData = CourseGraderData.combineData(files);
+
+        double mean = CourseGraderData.weightedMean(joinedData);
+        assertEquals(3.22, mean, 0.01);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void invalidWeightedAverage1() {
+        List<CourseProperties> joinedData = CourseGraderData.combineData(nullString);
 
         double mean = CourseGraderData.weightedMean(joinedData);
         assertEquals(3.22, mean, 0.01);

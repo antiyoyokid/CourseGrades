@@ -17,13 +17,15 @@ public class CourseGraderData {
      * @param input is a String array of file names
      * @return arrayList with all the Data combined together
      * Combines several json files together and leaves it as arrayList
-     * Also handles exceptions if input String is empty
+     * Also handles exceptions if input String is empty or if its null
      */
 
 
     public static ArrayList<CourseProperties> combineData(String[] input) {
 
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.length == 0) throw new IllegalArgumentException(Errors.STRING_ARRAY_ERROR);
+
 
 
         List<String> dataFileNames = Arrays.asList(input);
@@ -34,9 +36,9 @@ public class CourseGraderData {
         Perhaps the most powerful line in this entire program. Returns arrayList combining JSON files
         Converts dataFile to string, Json makes string into Array, to make the program work Array to ArrayList
          */
-        for (int i = 0; i < dataFileNames.size(); i++) {
+        for (String dataFileName : dataFileNames) {
             ArrayList<CourseProperties> combined = new ArrayList<>(Arrays.asList(test.fromJson
-                    (Data.getFileContentsAsString(dataFileNames.get(i)), CourseProperties[].class)));
+                    (Data.getFileContentsAsString(dataFileName), CourseProperties[].class)));
 
             myCourses.addAll(combined);
         }
@@ -57,7 +59,9 @@ public class CourseGraderData {
 
     public static ArrayList<CourseProperties> subjectSort(List<CourseProperties> input, String subject) {
 
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
 
         /*
           From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
@@ -90,7 +94,9 @@ public class CourseGraderData {
      * @return ArrayList name of all matching instructors with the search term
      */
     public static ArrayList<CourseProperties> instructorSort(List<CourseProperties> input, String partOfName) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
 
         /*
          * From StackOverFlow https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
@@ -127,6 +133,7 @@ public class CourseGraderData {
      * Method also takes care of errors if the integers are less than 0.
      */
     public static ArrayList<CourseProperties> numberSort(List<CourseProperties> input, int maxCourseNumber, int minCourseNumber) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minCourseNumber <= 0 || maxCourseNumber <= 0) throw new IllegalArgumentException(Errors.INT_ERROR);
 
@@ -161,7 +168,9 @@ public class CourseGraderData {
      * Takes care of min and max incase min is greater than
      */
     public static ArrayList<CourseProperties> numberStudentsSort(List<CourseProperties> input, int minStudent, int maxStudent) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
         if (minStudent < 0 || maxStudent < 0) throw new IllegalArgumentException(Errors.INT_ERROR);
         if (minStudent > maxStudent) {
             int temp = minStudent;
@@ -204,7 +213,9 @@ public class CourseGraderData {
      */
 
     public static ArrayList<CourseProperties> simpleEasyClassSort(List<CourseProperties> input, double minAvg, double maxAvg) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
         if (minAvg < 0 || maxAvg < 0) {
             throw new IllegalArgumentException(Errors.DOUBLE_ERROR);
         }
@@ -234,6 +245,7 @@ public class CourseGraderData {
      * @return Arraylist with courses that have greater than a certain number of A+
      */
     public static ArrayList<CourseProperties> mostAces(List<CourseProperties> input, int minAplus) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
         if (minAplus < 0) {
             throw new IllegalArgumentException(Errors.INT_ERROR);
@@ -263,7 +275,9 @@ public class CourseGraderData {
      */
 
     public static int numberTotalStudentsSort(List<CourseProperties> input) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
         int sum = 0;
         for (CourseProperties index : input) {
 
@@ -282,7 +296,9 @@ public class CourseGraderData {
      * @return number of students who have a range of Grades between low and high Grades.
      */
     public static int StudentbyGrades(List<CourseProperties> input, String lowGrade, String highGrade) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
+
 
 
         int i = -1;
@@ -330,6 +346,7 @@ public class CourseGraderData {
      * @return mean weighted average combining all Courses
      */
     public static double weightedMean(List<CourseProperties> input) {
+        if(input == null) throw new NullPointerException(Errors.NULL_POINTER);
         if (input.size() == 0) throw new IllegalArgumentException(Errors.ARRAY_LIST_ERROR);
 
 
